@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#07172d" />
+  <title>Blaster Sound Hunt</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <main id="app">
+    <section id="menuScreen" class="screen menu-screen active" aria-label="Головне меню">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Blaster Sound Hunt">
+          <span class="brand-mark">B</span>
+          <span>BLASTER<br><b>SOUND HUNT</b></span>
+        </a>
+        <div class="top-actions">
+          <button class="icon-button" id="soundToggle" aria-label="Вимкнути звук">♪</button>
+          <button class="icon-button" id="settingsBtn" aria-label="Налаштування">⚙</button>
+        </div>
+      </header>
+
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span></span> ПОРТАЛ НЕСТАБІЛЬНИЙ</div>
+          <h1>ЦІЛЬСЯ.<br><em>СТРІЛЯЙ.</em><br>РЯТУЙ СВІТ.</h1>
+          <p>Твій іграшковий бластер — справжній контролер. Наведи приціл, зроби постріл і влучай у цілі, поки вони не зникли в порталі.</p>
+          <div class="hero-buttons">
+            <button class="primary-button" id="startBtn"><span>ПОЧАТИ ГРУ</span><b>▶</b></button>
+            <button class="secondary-button" id="calibrateBtn"><span class="mic-dot">●</span> КАЛІБРУВАТИ БЛАСТЕР</button>
+            <button class="secondary-button camera-button" id="cameraBtn"><span class="camera-dot">◆</span> НАЛАШТУВАТИ КАМЕРУ</button>
+          </div>
+          <div class="quick-note">
+            <span class="quick-icon">⌁</span>
+            <p><b>Без мікрофона?</b><br>Space або клік теж стріляє</p>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="portal portal-a"></div>
+          <div class="portal portal-b"></div>
+          <div class="spark s1"></div><div class="spark s2"></div><div class="spark s3"></div>
+          <svg class="blaster" viewBox="0 0 720 440" role="img" aria-label="Стилізований синьо-помаранчевий бластер">
+            <defs>
+              <linearGradient id="blueBody" x1="0" x2="1">
+                <stop offset="0" stop-color="#087df0"/>
+                <stop offset=".55" stop-color="#13aaf8"/>
+                <stop offset="1" stop-color="#0465cc"/>
+              </linearGradient>
+              <linearGradient id="orangeBody" x1="0" x2="1">
+                <stop offset="0" stop-color="#ff5a16"/>
+                <stop offset="1" stop-color="#ff9d1c"/>
+              </linearGradient>
+              <filter id="glow"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <path d="M65 177 L585 136 L665 170 L650 245 L553 270 L157 270 L72 231 Z" fill="#031b38" opacity=".7"/>
+            <path d="M55 145 L548 105 L620 133 L600 226 L505 250 L132 250 L48 213 Z" fill="url(#blueBody)" stroke="#6fd6ff" stroke-width="5"/>
+            <path d="M77 165 L469 132 L509 151 L499 210 L131 223 L74 202 Z" fill="#07519e" opacity=".86"/>
+            <path d="M53 144 L138 136 L147 245 L66 222 L43 195 Z" fill="url(#orangeBody)"/>
+            <path d="M586 122 L680 133 L682 198 L601 217 L616 145 Z" fill="url(#orangeBody)" stroke="#ffcf5d" stroke-width="4"/>
+            <path d="M286 244 L420 242 L451 279 L403 314 L371 398 L256 392 L280 300 L235 270 Z" fill="url(#orangeBody)" stroke="#ffbd45" stroke-width="5"/>
+            <path d="M315 266 L400 269 L372 363 L282 361 Z" fill="#075bc1"/>
+            <path d="M191 246 L258 246 L232 285 L166 281 Z" fill="#101827"/>
+            <rect x="105" y="173" width="270" height="18" rx="9" fill="#112336"/>
+            <rect x="190" y="143" width="100" height="18" rx="7" fill="#102844"/>
+            <path d="M475 135 L548 127 L550 207 L481 216 Z" fill="#0e1728"/>
+            <path d="M490 150 L532 146 L533 193 L493 198 Z" fill="#162c42"/>
+            <circle cx="105" cy="191" r="26" fill="#ff7b18" filter="url(#glow)"/>
+            <circle cx="105" cy="191" r="12" fill="#fff4b3"/>
+            <g fill="#85dcff"><rect x="160" y="204" width="32" height="7" rx="3"/><rect x="203" y="200" width="32" height="7" rx="3"/><rect x="246" y="196" width="32" height="7" rx="3"/></g>
+          </svg>
+          <div class="aim-ring"><i></i></div>
+          <div class="model-tag"><span>PORTAL UNIT</span><b>BSH–07</b></div>
+        </div>
+      </div>
+
+      <div class="menu-footer">
+        <button class="text-button" id="recordsBtn">🏆 РЕКОРДИ</button>
+        <div class="difficulty">
+          <label for="difficultySelect">СКЛАДНІСТЬ</label>
+          <select id="difficultySelect">
+            <option value="easy">ЛЕГКА</option>
+            <option value="normal" selected>СЕРЕДНЯ</option>
+            <option value="hard">ВАЖКА</option>
+            <option value="expert">ЕКСПЕРТ</option>
+          </select>
+        </div>
+        <span class="version">PORTAL DEFENSE v1.0</span>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen" aria-label="Гра">
+      <canvas id="gameCanvas"></canvas>
+      <div class="game-vignette"></div>
+      <div class="hud">
+        <div class="hud-left">
+          <button class="pause-button" id="pauseBtn" aria-label="Пауза">Ⅱ</button>
+          <div class="level-chip"><small>РІВЕНЬ</small><b id="levelValue">1 / 5</b></div>
+          <div class="mission"><small id="levelName">ТРЕНУВАННЯ</small><strong id="missionText">ЗБИВАЙ ЧЕРВОНІ ЦІЛІ</strong></div>
+        </div>
+        <div class="hud-center">
+          <small>ЧАС</small><b id="timerValue">00:35</b>
+        </div>
+        <div class="hud-right">
+          <div class="score"><small>РАХУНОК</small><b id="scoreValue">000000</b></div>
+          <div class="lives" id="livesValue" aria-label="Життя">♥ ♥ ♥</div>
+        </div>
+      </div>
+      <div class="combo" id="combo"><small>СЕРІЯ</small><b>x<span>1</span></b></div>
+      <div class="mic-meter">
+        <span id="micState">МІКРОФОН</span>
+        <div class="meter-track"><i id="micLevel"></i><b id="micThreshold"></b></div>
+      </div>
+      <div class="camera-status" id="cameraState"><i></i><span>МИША / ПАЛЕЦЬ</span></div>
+      <div class="game-hint" id="gameHint">РУХАЙ ПРИЦІЛ МИШЕЮ · SPACE / КЛІК — ПОСТРІЛ</div>
+      <div id="crosshair" class="crosshair" aria-hidden="true"><span></span><i></i></div>
+      <div class="flash" id="flash"></div>
+    </section>
+
+    <section id="resultScreen" class="screen result-screen" aria-label="Результат">
+      <div class="result-card">
+        <div class="result-kicker">ПОРТАЛ СТАБІЛІЗОВАНО</div>
+        <h2 id="resultTitle">РІВЕНЬ ПРОЙДЕНО!</h2>
+        <div class="stars" id="stars">★ ★ ★</div>
+        <div class="result-score"><small>ЗАГАЛЬНИЙ РАХУНОК</small><b id="finalScore">12 450</b><span id="newRecord">НОВИЙ РЕКОРД</span></div>
+        <div class="stats">
+          <div><small>ВЛУЧАННЯ</small><b id="statHits">24</b></div>
+          <div><small>ТОЧНІСТЬ</small><b id="statAccuracy">82%</b></div>
+          <div><small>НАЙКРАЩА СЕРІЯ</small><b id="statCombo">x8</b></div>
+          <div><small>ПРОМАХИ</small><b id="statMisses">5</b></div>
+        </div>
+        <div class="result-actions">
+          <button class="secondary-button" id="menuBtn">ГОЛОВНЕ МЕНЮ</button>
+          <button class="primary-button" id="nextBtn"><span>НАСТУПНИЙ РІВЕНЬ</span><b>▶</b></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" id="calibrationModal" role="dialog" aria-modal="true" aria-labelledby="calibrationTitle">
+      <button class="modal-close" data-close-modal aria-label="Закрити">×</button>
+      <div class="modal-icon">◉</div>
+      <div class="eyebrow"><span></span> AUDIO LINK</div>
+      <h2 id="calibrationTitle">КАЛІБРУВАННЯ<br><em>БЛАСТЕРА</em></h2>
+      <p id="calibrationText">Дозволь доступ до мікрофона, потім зроби 3 постріли поруч із пристроєм. Ми налаштуємо чутливість автоматично.</p>
+      <div class="calibration-shots" id="calibrationShots">
+        <i></i><i></i><i></i>
+      </div>
+      <div class="big-meter"><i id="calibrationLevel"></i><b id="calibrationThreshold"></b></div>
+      <button class="primary-button modal-primary" id="enableMicBtn"><span>УВІМКНУТИ МІКРОФОН</span><b>●</b></button>
+      <p class="privacy-note">Аудіо обробляється тільки у твоєму браузері й нікуди не надсилається.</p>
+    </div>
+
+    <div class="modal compact-modal" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <button class="modal-close" data-close-modal aria-label="Закрити">×</button>
+      <div class="eyebrow"><span></span> SYSTEM</div>
+      <h2 id="settingsTitle">НАЛАШТУВАННЯ</h2>
+      <label class="range-row"><span><b>Чутливість мікрофона</b><small>Нижче — реагує на тихіші звуки</small></span><input id="sensitivityRange" type="range" min="0.55" max="1.35" step="0.05" value="1"></label>
+      <label class="toggle-row"><span><b>Звукові ефекти</b><small>Постріли, влучання та бонуси</small></span><input id="effectsToggle" type="checkbox" checked><i></i></label>
+      <label class="toggle-row"><span><b>Наведення камерою</b><small>Відстеження помаранчевого дула</small></span><input id="cameraToggle" type="checkbox"><i></i></label>
+      <button class="secondary-button full-button" id="settingsCalibrate">КАЛІБРУВАТИ МІКРОФОН</button>
+      <button class="secondary-button full-button" id="settingsCamera">КАЛІБРУВАТИ КАМЕРУ</button>
+    </div>
+
+    <div class="modal camera-modal" id="cameraModal" role="dialog" aria-modal="true" aria-labelledby="cameraTitle">
+      <button class="modal-close" data-close-modal aria-label="Закрити">×</button>
+      <div class="eyebrow"><span></span> OPTICAL TRACKING</div>
+      <h2 id="cameraTitle">КАМЕРНЕ<br><em>НАВЕДЕННЯ</em></h2>
+      <p id="cameraText">Камера знайде помаранчеве дуло й синій корпус, визначить напрямок між ними та переведе його у рух прицілу.</p>
+      <div class="camera-preview" id="cameraPreview">
+        <video id="cameraVideo" muted playsinline></video>
+        <canvas id="cameraOverlay"></canvas>
+        <div class="camera-placeholder" id="cameraPlaceholder"><span>◆</span><b>КАМЕРА ВИМКНЕНА</b></div>
+        <div class="tracking-reticle" id="trackingReticle"></div>
+        <div class="preview-label"><i></i><span id="trackingLabel">ОЧІКУВАННЯ</span></div>
+      </div>
+      <div class="camera-guide" id="cameraGuide">
+        <b>Як це працює</b>
+        <span>1. Покажи камері помаранчеве дуло й синій корпус</span>
+        <span>2. Повертай бластер — маркер рухатиметься за напрямком ствола</span>
+        <span>3. Натисни «Зафіксувати» у двох крайніх позиціях</span>
+      </div>
+      <div class="camera-actions">
+        <button class="primary-button full-button" id="enableCameraBtn"><span>УВІМКНУТИ КАМЕРУ</span><b>◆</b></button>
+        <button class="secondary-button full-button" id="captureCameraBtn" disabled>ЗАФІКСУВАТИ: ВЕРХНІЙ ЛІВИЙ КУТ</button>
+      </div>
+      <p class="privacy-note">Відео аналізується локально у браузері й нікуди не надсилається.</p>
+    </div>
+
+    <div class="modal compact-modal" id="recordsModal" role="dialog" aria-modal="true" aria-labelledby="recordsTitle">
+      <button class="modal-close" data-close-modal aria-label="Закрити">×</button>
+      <div class="eyebrow"><span></span> HALL OF AIM</div>
+      <h2 id="recordsTitle">РЕКОРДИ</h2>
+      <div class="record-row"><span>Найкращий рахунок</span><b id="recordScore">0</b></div>
+      <div class="record-row"><span>Найкраща серія</span><b id="recordCombo">x0</b></div>
+      <div class="record-row"><span>Відкритий рівень</span><b id="recordLevel">1 / 5</b></div>
+      <button class="primary-button full-button" data-close-modal><span>ГОТОВО</span><b>✓</b></button>
+    </div>
+
+    <div class="modal compact-modal" id="pauseModal" role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
+      <div class="modal-icon">Ⅱ</div>
+      <h2 id="pauseTitle">ПАУЗА</h2>
+      <p>Портал зачекає. Переведи подих і повертайся до полювання.</p>
+      <button class="primary-button full-button" id="resumeBtn"><span>ПРОДОВЖИТИ</span><b>▶</b></button>
+      <button class="secondary-button full-button" id="quitBtn">ВИЙТИ В МЕНЮ</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
